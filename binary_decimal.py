@@ -7,45 +7,57 @@ Binary to Decimal and Back Converter - Develop a converter to convert
 a decimal number to binary or a binary number to its decimal equivalent.
 """
 
-def binary2decimal(number):    
-    
-    b=str(number) 
-    #validation of binary number
-    for i in b:
-        if int(i) >1:
-            print ' Please, Introduce a valid binary number. only 1 and 0'
-            valid = False
-            break
+class number(object):
+    def __init__(self, num,dec = True):
+        self.num = num
+        self.dec = dec
+        self.wrong = False
+        if self.dec == True:
+            self.num = int(num)
         else:
-            valid = True
-     #binary to decimal conversion       
-    if valid == True:
-        b =b[::-1]  
-        dec = 0
-        pos = 0
-        for i in b:
-            dec += int(i)*(2**pos)
-            pos +=1
+            self.num = str(num)
+            for i in num:
+                if int(i) >1:
+                    print ' Reinstantiate the Class, Binary numbers only have 1 and 0'
+                    self.wrong = True
+                    break
+        if self.wrong == False:
+            print self.num
+           
+    def binary2decimal(self): 
+        if self.dec == True:
+            print self.num
+        else:
+            if self.wrong == True:
+                print ' Number data corrupted, reinstantiate the class'
+            else:
+                temp = self.num
+                temp =temp[::-1]  
+                dec = 0
+                pos = 0
+                for i in temp:
+                    dec += int(i)*(2**pos)
+                    pos +=1
+                self.num = dec
+                print self.num
+                
+    def decimal2binary(self):
+        if self.dec == False:
+            print self.num
+        else:
+            temp = []
+            while self.num >0:
+                temp.append(self.num%2)
+                self.num = self.num/2
+            temp = temp[::-1]
+            self.num=''
+            for i in temp:
+                self.num = self.num + str(i) 
+            print self.num
             
         
-        print dec
-
-binary2decimal(101)
-    
-def decimal2binary(number):
-
-    number = int(number)
-    temp = []
-    while number >0:
-        temp.append(number%2)
-        number = number/2
-    temp = temp[::-1]
-    bin=''
-    for i in temp:
-        bin = bin + str(i) 
-    print bin
-
-     
-decimal2binary(128)    
-     
+numero = number('101',False)
+numero.binary2decimal()
+numero2 = number(42)
+numero2.decimal2binary()
 
